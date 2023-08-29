@@ -13,17 +13,17 @@ argparser = argparse.ArgumentParser(description='The simplest tool for deferred 
 
 argparser.add_argument('-m', '--msg', type=str, help='commit message')
 
-argparser.add_argument('--minutes', type=int, default=0, help='after how many minutes to commit, relative')
-argparser.add_argument('--absminutes', type=int, default=0, help='after how many minutes to commit, absolute')
+argparser.add_argument('--minutes', type=int, help='after how many minutes to commit, relative')
+argparser.add_argument('--absminutes', type=int, help='after how many minutes to commit, absolute')
 
-argparser.add_argument('--hours', type=int, default=0, help='after how many hours to commit, relative')
-argparser.add_argument('--abshours', type=int, default=0, help='after how many hours to commit, absolute')
+argparser.add_argument('--hours', type=int, help='after how many hours to commit, relative')
+argparser.add_argument('--abshours', type=int, help='after how many hours to commit, absolute')
 
-argparser.add_argument('--days', type=int, default=0, help='after how many days to commit, relative')
-argparser.add_argument('--absdays', type=int, default=0, help='after how many days to commit, absolute')
+argparser.add_argument('--days', type=int, help='after how many days to commit, relative')
+argparser.add_argument('--absdays', type=int, help='after how many days to commit, absolute')
 
-argparser.add_argument('--months', type=int, default=0, help='after how many months to commit, relative')
-argparser.add_argument('--absmonths', type=int, default=0, help='after how many months to commit, absolute')
+argparser.add_argument('--months', type=int, help='after how many months to commit, relative')
+argparser.add_argument('--absmonths', type=int, help='after how many months to commit, absolute')
 
 argparser.add_argument('--randtime', action='store_true', help='random commit time')
 
@@ -40,30 +40,30 @@ def generate_commit_time(arguments) -> unixtime:
         minutes = random.randint(0, 59)
         hours = random.randint(0, 23)
     else:
-        if arguments.minutes:
+        if arguments.minutes != None:
             minutes = (now + datetime.timedelta(minutes=arguments.minutes)).minute
-        elif arguments.absminutes:
+        elif arguments.absminutes != None:
             minutes = arguments.absminutes
         else:
             minutes = now.minute
 
-        if arguments.hours:
+        if arguments.hours != None:
             hours = (now + datetime.timedelta(hours=arguments.hours)).hour
-        elif arguments.abshours:
+        elif arguments.abshours != None:
             hours = arguments.abshours
         else:
             hours = now.hour
 
-    if arguments.days:
+    if arguments.days != None:
         days = (now + datetime.timedelta(days=arguments.days)).day
-    elif arguments.absdays:
+    elif arguments.absdays != None:
         days = arguments.absdays
     else:
         days = now.day
 
-    if arguments.months:
+    if arguments.months != None:
         months = (now + datetime.timedelta(days=arguments.months * 30)).month
-    elif arguments.absmonths:
+    elif arguments.absmonths != None:
         months = arguments.absmonths
     else:
         months = now.month
